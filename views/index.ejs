@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="TweetGlobe">
+  <head>
+    <meta charset="utf-8">
+    <title>Geolocation Twitter Sentiments</title>
+
+    <link href='//fonts.googleapis.com/css?family=Lato:300,400,700|Share+Tech+Mono' rel='stylesheet' type='text/css'>
+    <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/c3/0.1.29/c3.css' />
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='shortcut icon' href='/images/Twitter_logo_blue_small.png' />
+
+    <script src="//platform.twitter.com/widgets.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/pubnub/3.6.3/pubnub.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/three.js/r68/three.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/stats.js/r11/Stats.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"/></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.18/angular.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.18/angular-resource.min.js"></script>
+    <script src="/vendor/pubnub-angular/lib/pubnub-angular.js"></script>
+    <script src="//js.leapmotion.com/leap-0.6.3.min.js"></script>
+    <script src="//js.leapmotion.com/leap-plugins-0.1.9.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.js"></script>
+    <script src="http://cdn.pubnub.com/socket.io.min.js"></script>
+
+    <script>
+      // PubNub config rendered server side so that config is in one place
+      var pubnubConfig = {
+        subscribe_key: '<%= subscribe_key %>',
+        channel: '<%= channel %>'
+      }
+
+       // $(document).ready(function(){
+       //   $("#zxc").click(function(){
+       //     //alert("hello");
+       //     var v=$("#searchterm").val();
+       //     alert(v);
+       //       $.get("http://localhost:3000/name/?searchkey="+v, function(data, status){
+       //           alert( "\nStatus: " + status);
+       //           alert(data);
+       //       });
+       //   });
+       // });
+
+
+    </script>
+
+    <style>
+      #fullscreen {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        background: url(assets/fullscreen.png);
+        width: 32px;
+        height: 32px;
+        cursor: pointer;
+      }
+    </style>
+
+  </head>
+  <body>
+
+    <!-- Container for the Three.js scene -->
+    <div id="globe-holder"></div>
+
+    <!-- Container for the Angular application -->
+    <div id="tweet-hud" ng-controller="TweetHud">
+
+    <h1>Real-Time Geolocation Twitter Sentiment Analysis</h1>
+
+<!--     <form id="trackingSubmit" >  
+    <input class="trackingWord" type="text" placeholder="Enter Word" name="searchkey" id="searchterm" />
+    <input type="submit" value="submit" id="zxc">
+    </form>   -->
+
+<!--     <label for="route_no">Route No:</label><input type="text" id="route_no" name="route_no" required="required" />
+    <input type="button" value="Search" id="search" />
+    <div id="result"></div>    -->
+    
+
+    <div id="data"></div>  
+
+<!--       <div id="right-panel" class="hud-panel">
+        <div> -->
+
+          <!-- Repeats for every Tweet in the $scope.tweets model -->
+<!--           <div ng-repeat="tweet in tweets" class="tweet-item {{tweet.sentiment.state}}">
+            <img ng-src="{{tweet.user.profile_image_url}}" />
+            <span class="text"><a href="{{tweet.user.profile_image_url}}" target="_blank">@{{tweet.user.screen_name}}</a></span>
+          </div>
+
+        </div>
+      </div> -->
+
+      <div id="left-panel" class="hud-panel">
+        <div id="sentiment-panel" class="sub-panel">
+          <h2>Sentiment Score</h2>
+
+          <!-- Bind to $scope.avgSentiment model -->
+          <span id="sentiment-value" class="{{sentimentState}}">{{avgSentiment}}</span>
+
+        </div>
+
+    <div id="fullscreen"></div>
+
+
+    <script src="/javascripts/shaders.js"></script>
+    <script src="/javascripts/TweetBeacon.js"></script>
+    <script src="/javascripts/LeapController.js"></script>
+    <script src="/javascripts/TwitterStreamGlobe.js"></script>
+    <script src="/javascripts/TweetHud.js"></script>
+    <!-- // <script src="/javascripts/mouseControls.js"></script> -->
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', '<%= ga_tracking_id %>', 'auto');
+      ga('send', 'pageview');
+    </script>
+  </body>
+</html>

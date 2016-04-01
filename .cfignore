@@ -1,0 +1,7 @@
+node_modules
+LICENCE
+README.md
+npm-debug.log
+screenshot.png
+.git
+config.json
